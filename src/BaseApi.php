@@ -107,7 +107,7 @@ class BaseApi
     protected function __saveFeed($response, $league, $season, $feed, $outputFormat, ...$params) {
         # Save to memory regardless of selected method
         if ( $outputFormat == "json" ) {
-            $this->storeOutput = (array) json_decode($response);
+            $this->storeOutput = json_decode($response, false);
         } elseif ( $outputFormat == "xml" ) {
             $this->storeOutput = simplexml_load_string($response);
         } elseif ( $outputFormat == "csv" ) {
@@ -240,7 +240,7 @@ class BaseApi
             $data = file_get_contents($this->storeLocation . $filename);
 
             if ( $format == "json" ) {
-                $this->storeOutput = (array) json_decode($data);
+                $this->storeOutput = json_decode($data, false);
             } elseif ( $format == "xml" ) {
                 $this->storeOutput = simplexml_load_string($data);
             } elseif ( $format == "csv" ) {
